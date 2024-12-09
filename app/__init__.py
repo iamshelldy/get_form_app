@@ -1,3 +1,5 @@
+import urllib
+
 from fastapi import FastAPI, Request
 
 from .models import FieldTypeDetector
@@ -11,7 +13,24 @@ data = parse_sample_data()
 
 @app.post("/get_form")
 async def get_form(request: Request):
-    body = await request.json()
+    content_type = request.headers.get("Content-Type", "application/x-www-form-urlencoded").lower()
+
+    if "application/json" in content_type:
+        body = await request.json()
+    elif "application/x-www-form-urlencoded" in content_type:
+        raw_data = await request.body()
+        raw_str = raw_data.decode('utf-8')
+
+        # Replace spaces to restore them.
+        raw_str = raw_str.replace(' ', '%20')
+        # Replace pluses to restore them.
+        raw_str = raw_str.replace('+', '%2B')
+
+        # Parse string.
+        parsed_data = urllib.parse.parse_qsl(raw_str)
+        body = dict(parsed_data)
+    else:
+        return {"error": "Unsupported Content-Type"}
 
     detector = FieldTypeDetector(fields=body)
     form_fields = detector.fields
