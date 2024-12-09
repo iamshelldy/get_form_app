@@ -12,7 +12,7 @@ class FieldTypeDetector(BaseModel):
     """
     fields: dict[str, str]
 
-    @field_validator('fields', mode='before')
+    @field_validator("fields", mode="before")
     def detect_field_type(cls, value):
         """
         Method to detect type of each field in a dictionary.
