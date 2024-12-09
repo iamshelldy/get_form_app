@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Form Template Name",
+    "field_name_1": "email",
+    "field_name_2": "phone"
+  },
+  {
+    "name": "Registration Form",
+    "email": "email",
+    "phone": "phone",
+    "username": "text",
+    "password_hash": "text"
+  },
+  {
+    "name": "Login Form",
+    "username": "text",
+    "password_hash": "text"
+  },
+  {
+    "name": "Message Form",
+    "title": "text",
+    "body": "text",
+    "created": "date",
+    "updated": "date"
+  },
+  {
+    "name": "Contacts Form",
+    "email": "email",
+    "phone": "phone"
+  }
+]
