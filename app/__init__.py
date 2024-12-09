@@ -1,4 +1,4 @@
-import urllib
+from urllib.parse import parse_qsl
 
 from fastapi import FastAPI, Request
 
@@ -27,7 +27,7 @@ async def get_form(request: Request):
         raw_str = raw_str.replace('+', '%2B')
 
         # Parse string.
-        parsed_data = urllib.parse.parse_qsl(raw_str)
+        parsed_data = parse_qsl(raw_str)
         body = dict(parsed_data)
     else:
         return {"error": "Unsupported Content-Type"}
